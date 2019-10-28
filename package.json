@@ -1,0 +1,51 @@
+{
+  "name": "cryptocurrency-shop",
+  "version": "1.0.0",
+  "main": "src",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvilThinks/cryptocurrency-shop.git"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "redux-saga",
+    "redux-actions",
+    "jsx",
+    "jest"
+  ],
+  "dependencies": {
+    "axios": "0.18.0",
+    "file-loader": "^1.1.11",
+    "formik": "^1.0.2",
+    "moment": "^2.22.2",
+    "prettier": "^1.13.5",
+    "react": "16.4.1",
+    "react-dom": "16.4.1",
+    "react-easy-chart": "^1.0.0",
+    "react-particles-js": "^2.3.0",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^1.1.4",
+    "react-svg-spinner": "1.0.1",
+    "recompose": "^0.27.1",
+    "redux": "^4.0.0",
+    "redux-actions": "^2.4.0",
+    "redux-saga": "^0.16.0",
+    "styled-components": "^3.3.3",
+    "svg-inline-loader": "^0.8.0",
+    "url-loader": "^1.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "eslint-plugin-cypress": "^2.0.1"
+  },
+  "author": "Gleb Gudzikevich"
+}
