@@ -21,7 +21,7 @@
     "moment": "^2.22.2",
     "prettier": "^1.13.5",
     "react": "16.4.1",
-    "react-dom": "16.4.1",
+    "react-dom": "16.11.0",
     "react-easy-chart": "^1.0.0",
     "react-particles-js": "^2.3.0",
     "react-redux": "^5.0.7",
