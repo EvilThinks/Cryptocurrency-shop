@@ -2,10 +2,17 @@ import React, { PureComponent } from 'react';
 import { compose, mapProps } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getCurrentCurrencyPurchase, getCurrentCurrencySell, getSelectedCurrency } from '../../reducers/currency';
-import { buyCurrencyRequest, sellCurrencyRequest } from '../../actions/currency';
+import {
+  getCurrentCurrencyPurchase,
+  getCurrentCurrencySell,
+  getSelectedCurrency
+} from '../../ducks/currency/reducer';
+import {
+  buyCurrencyRequest,
+  sellCurrencyRequest
+} from '../../ducks/currency/actions';
 import styled from 'styled-components';
-import { getError } from '../../reducers/wallet';
+import { getError } from '../../ducks/wallet/reducer';
 
 const enhance = compose(
   withRouter,
@@ -161,7 +168,9 @@ class TradeOperations extends PureComponent {
         break;
       case 'inputPurchase':
         this.setState(({ inputPurchase }) => {
-          const parsedPurchase = isNaN(inputPurchase) ? 0 : parseFloat(inputPurchase);
+          const parsedPurchase = isNaN(inputPurchase)
+            ? 0
+            : parseFloat(inputPurchase);
           const nextFiat = parsedPurchase / purchase;
           return {
             inputFiat: nextFiat,

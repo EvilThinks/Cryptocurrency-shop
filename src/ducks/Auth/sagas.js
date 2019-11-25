@@ -40,7 +40,6 @@ function* registrationFlow(action) {
 export function* authFlow() {
   while (true) {
     const isAuthorized = yield select(getIsAuthorized);
-    console.log(isAuthorized)
     if (isAuthorized) {
       yield put(loginSuccess);
     }

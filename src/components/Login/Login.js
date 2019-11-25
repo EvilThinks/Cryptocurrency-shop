@@ -27,7 +27,6 @@ class Login extends PureComponent {
   render() {
     const { isAuthorized, loginError, registrationError } = this.props;
     const { type } = this.state;
-    //console.log('rendering', isAuthorized, loginError, registrationError);
     return isAuthorized ? (
       <Redirect to="/trade/btc" />
     ) : (
