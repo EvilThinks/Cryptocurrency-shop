@@ -1,0 +1,1 @@
+export const getCoins = state =>state.wallet.coins
