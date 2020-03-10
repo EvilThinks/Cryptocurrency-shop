@@ -1,29 +1,35 @@
-//import axios from 'axios';
-import MockedAxios from './mocks/MockedAxios';
+import axios from 'axios';
 
-// axios.defaults.headers.post['Accept'] = '*/*';
-// const instance = axios.create({
-//   baseURL: 'http://localhost:3000',
-//   headers: {
-//     Accept: '*/*',
-//     'Content-Type': 'application/json'
-//   },
-//   withCredentials: false
-// });
-// const jsonInstance = axios.create({
-//   baseURL: 'http://localhost:3000',
-//   headers: {
-//     'Content-Type': 'application/json'
-//   },
-//   withCredentials: false
-// });
-
-const instance = new MockedAxios({
+axios.defaults.headers.post['Accept'] = '*/*';
+const instance = axios.create({
+  baseURL: 'http://localhost:3000',
+  headers: {
+    Accept: '*/*',
+    'Content-Type': 'application/json'
+  },
+  withCredentials: false
+});
+const jsonInstance = axios.create({
   baseURL: 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json'
-  }
+  },
+  withCredentials: false
 });
+instance.interceptors.response.use(
+  response => response,
+  error => {
+    return error.response ? error.response : error;
+  }
+);
+jsonInstance.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    return error.response ? error.response : error;
+  }
+);
 
 /**
  * Registration & session functions
@@ -36,13 +42,14 @@ export const setTokenApi = access_token => {
 export const clearTokenApi = () => {
   instance.defaults.headers.common['Authorization'] = undefined;
 };
+export const logoutFromServer = email => {
+  instance.post('/user/logout', { email: email });
+};
 
 export const login = auth =>
-  /*jsonInstance*/ instance
-    .post('/user/login', { auth: auth })
-    .then(response => {
-      return response;
-    });
+  jsonInstance.post('/user/login', { auth: auth }).then(response => {
+    return response;
+  });
 
 export const registration = auth =>
   instance.post('/user/register', { auth: auth }).then(response => {
@@ -55,14 +62,14 @@ export const registration = auth =>
 
 export const buyCurrency = (currency, value) =>
   instance
-    .get(`stock/exchange?symbol=${currency}&operation=purchase&sum=${value}`)
+    .get(`/stock/exchange?symbol=${currency}&operation=purchase&sum=${value}`)
     .then(response => {
       return response;
     });
 
 export const sellCurrency = (currency, value) =>
   instance
-    .get(`stock/exchange?symbol=${currency}&operation=sell&sum=${value}`)
+    .get(`/stock/exchange?symbol=${currency}&operation=sell&sum=${value}`)
     .then(response => {
       return response;
     });

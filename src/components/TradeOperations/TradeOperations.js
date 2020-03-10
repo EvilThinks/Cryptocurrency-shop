@@ -6,7 +6,7 @@ import {
   getCurrentCurrencyPurchase,
   getCurrentCurrencySell,
   getSelectedCurrency
-} from '../../ducks/currency/reducer';
+} from '../../ducks/currency/selectors';
 import {
   buyCurrencyRequest,
   sellCurrencyRequest
@@ -118,10 +118,14 @@ class TradeOperations extends PureComponent {
   handleChange = event => {
     const { name, value } = event.target;
     const { sell, purchase } = this.props;
+    if (isNaN(event.target.value)) return;
+    if (event.target.value === '') {
+      this.setState(state => ({ [name]: '0' }));
+      return;
+    }
 
-    this.setState(state => ({ [name]: value }));
-    if (isNaN(event.target.value) || event.target.value === '') return;
-    else this.changeInputs(event.target.name, sell, purchase);
+    this.setState(state => ({ [name]: parseFloat(value) }));
+    this.changeInputs(name, sell, purchase);
   };
 
   handleBlur = () => {

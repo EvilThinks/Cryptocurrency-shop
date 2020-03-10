@@ -15,17 +15,35 @@ export default handleActions(
   {
     [selectBtc.toString()]: state => ({ ...state, selected: 'btc' }),
     [selectEth.toString()]: state => ({ ...state, selected: 'eth' }),
-    [fetchBtcRequest.toString()]: state => ({ ...state, isBtcLoading: true }),
-    [fetchEthRequest.toString()]: state => ({ ...state, isEthLoading: true }),
+    [fetchBtcRequest.toString()]: state => ({
+      ...state,
+      isBtcLoading: true,
+      error: null
+    }),
+    [fetchEthRequest.toString()]: state => ({
+      ...state,
+      isEthLoading: true,
+      error: null
+    }),
     [fetchBtcSuccess.toString()]: (state, action) => ({
       ...state,
-      btc: action.payload
+      btc: action.payload,
+      isBtcLoading: false
     }),
-    [fetchBtcFailure.toString()]: state => ({ ...state, isBtcLoading: false }),
-    [fetchEthFailure.toString()]: state => ({ ...state, isEthLoading: false }),
+    [fetchBtcFailure.toString()]: (state, action) => ({
+      ...state,
+      isBtcLoading: false,
+      error: action.payload
+    }),
+    [fetchEthFailure.toString()]: (state, action) => ({
+      ...state,
+      isEthLoading: false,
+      error: action.payload
+    }),
     [fetchEthSuccess.toString()]: (state, action) => ({
       ...state,
-      eth: action.payload
+      eth: action.payload,
+      isEthLoading: false
     }),
     [selectOffset.toString()]: (state, action) => ({
       ...state,
@@ -38,11 +56,7 @@ export default handleActions(
     btc: [],
     eth: [],
     isBtcLoading: false,
-    isEthLoading: false
+    isEthLoading: false,
+    error: null
   }
 );
-
-export const getOffset = state => state.currency.offset;
-export const getSelectedCurrency = state => state.currency.selected;
-export const getCurrentCurrencyPurchase = state => state.currency;
-export const getCurrentCurrencySell = state => state.currency;

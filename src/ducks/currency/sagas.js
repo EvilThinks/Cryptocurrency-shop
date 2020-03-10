@@ -9,7 +9,7 @@ import {
 } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import { loginSuccess, logout } from '../Auth/actions';
-import { getOffset } from './reducer';
+import { getOffset } from './selectors';
 import {
   selectBtc,
   selectEth,
@@ -27,23 +27,23 @@ import {
   fetchWalletSuccess,
   fetchWalletFailure
 } from '../wallet/actions';
-//import { changeLocation } from '../location/actions';
+import requestFlow from '../network/sagas';
 
 function* fetchBtcFlow(action) {
   try {
-    const response = yield call(candles, 'btc', action.payload);
+    const response = yield call(requestFlow, candles, 'btc', action.payload);
     yield put(fetchBtcSuccess(response.data.result));
   } catch (error) {
-    yield put(fetchBtcFailure(error));
+    yield put(fetchBtcFailure(error.message));
   }
 }
 
 function* fetchEthFlow(action) {
   try {
-    const response = yield call(candles, 'eth', action.payload);
+    const response = yield call(requestFlow, candles, 'eth', action.payload);
     yield put(fetchEthSuccess(response.data.result));
   } catch (error) {
-    yield put(fetchEthFailure(error));
+    yield put(fetchEthFailure(error.message));
   }
 }
 
@@ -61,12 +61,11 @@ export function* currencyWatch() {
   let currencyTask;
   while (true) {
     const action = yield take([
-     loginSuccess,
+      loginSuccess,
       logout,
       selectBtc,
       selectEth,
-      selectOffset,
-      //changeLocation
+      selectOffset
     ]);
 
     if (currencyTask) {
@@ -80,10 +79,10 @@ export function* currencyWatch() {
 
 function* fetchWalletFlow() {
   try {
-    const response = yield call(getWallet);
+    const response = yield call(requestFlow, getWallet);
     yield put(fetchWalletSuccess(response.data.result));
   } catch (error) {
-    yield put(fetchWalletFailure(error));
+    yield put(fetchWalletFailure(error.message));
   }
 }
 

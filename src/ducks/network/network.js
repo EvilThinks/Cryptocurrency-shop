@@ -9,7 +9,7 @@ export default handleActions(
   {
     [networkError.toString()]: (state, action) => ({
       error: action.payload,
-      message: action.payload.response.statusText
+      message: action.payload.message
     }),
     [clearNetworkError.toString()]: () => ({
       error: null,
@@ -22,4 +22,4 @@ export default handleActions(
   }
 );
 
-export const getIsNetworkError = state => state.networkError;
+export const getIsNetworkError = state => state.network.error;
