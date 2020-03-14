@@ -54,7 +54,6 @@ class CoinsChart extends PureComponent {
     const { selected, offset, error } = currency;
     const data = currency[selected];
     const isLoading = currency.isBtcLoading || currency.isEthLoading;
-
     const purchase = data.map(val => ({
       x: moment(val.mts).format('DD-MM HH:mm'),
       y: val.purchase

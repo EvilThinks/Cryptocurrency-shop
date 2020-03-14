@@ -59,4 +59,4 @@ export default handleActions(
     error: null
   }
 );
-export const getError = state => state.wallet.error;
+export const getError = state => state.user.wallet.error;

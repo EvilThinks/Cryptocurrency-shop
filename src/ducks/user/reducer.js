@@ -1,11 +1,15 @@
 import { handleActions } from 'redux-actions';
+import { combineReducers } from 'redux';
 import {
   getUserInfoFailure,
   getUserInfoRequest,
   getUserInfoSuccess
 } from './actions';
+import currency from '../currency/reducer';
+import wallet from '../wallet/reducer';
+import transactions from '../transactions/reducer';
 
-export default handleActions(
+const user = handleActions(
   {
     [getUserInfoRequest.toString()]: state => ({
       ...state,
@@ -29,3 +33,10 @@ export default handleActions(
     error: null
   }
 );
+
+export default combineReducers({
+  user,
+  wallet,
+  transactions,
+  currency
+});

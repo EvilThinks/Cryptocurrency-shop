@@ -14,6 +14,7 @@ import {
 import styled from 'styled-components';
 import { getError } from '../../ducks/wallet/reducer';
 
+
 const enhance = compose(
   withRouter,
   connect(

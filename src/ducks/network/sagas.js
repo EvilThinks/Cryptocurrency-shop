@@ -6,17 +6,8 @@ export default function*(fn, ...args) {
   try {
     const response = yield call(fn, ...args);
     if (yield select(getIsNetworkError)) yield put(clearNetworkError());
-    // console.log(
-    //   'STATUS',
-    //   response.status,
-    //   'RESPONSE',
-    //   response,
-    //   localStorage.getItem('jwt')
-    // );
     if (response.status !== 200) {
-      // console.log('!==200');
       if (response.status === 401) {
-        // console.log('401');
         yield put(logout());
         throw new Error('Unauthorized');
       } else {

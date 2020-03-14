@@ -58,9 +58,7 @@ class Login extends PureComponent {
                   {type === 'login' ? 'Войти' : 'Зарегистрироваться'}
                 </LoginButton>
                 {loginError && <div>{loginError}</div>}
-                {registrationError && (
-                  <div>{registrationError}</div>
-                )}
+                {registrationError && <div>{registrationError}</div>}
               </Column>
             </WrappedMenuBlock>
             <WrappedMenuBlock>
@@ -68,7 +66,7 @@ class Login extends PureComponent {
                 <React.Fragment>
                   <p>
                     Впервые на сайте?{' '}
-                    <a href="" onClick={this.makeRegisterFlow}>
+                    <a href="q" onClick={this.makeRegisterFlow}>
                       Зарегистрироваться
                     </a>
                   </p>
@@ -77,7 +75,7 @@ class Login extends PureComponent {
                 <React.Fragment>
                   <p>
                     Уже зарегистрированы?{' '}
-                    <a href="" onClick={this.makeLoginFlow}>
+                    <a href="q" onClick={this.makeLoginFlow}>
                       Войти
                     </a>
                   </p>

@@ -32,7 +32,8 @@ import requestFlow from '../network/sagas';
 function* fetchBtcFlow(action) {
   try {
     const response = yield call(requestFlow, candles, 'btc', action.payload);
-    yield put(fetchBtcSuccess(response.data.result));
+
+    yield put(fetchBtcSuccess(response.data));
   } catch (error) {
     yield put(fetchBtcFailure(error.message));
   }
@@ -41,7 +42,7 @@ function* fetchBtcFlow(action) {
 function* fetchEthFlow(action) {
   try {
     const response = yield call(requestFlow, candles, 'eth', action.payload);
-    yield put(fetchEthSuccess(response.data.result));
+    yield put(fetchEthSuccess(response.data));
   } catch (error) {
     yield put(fetchEthFailure(error.message));
   }
@@ -80,7 +81,8 @@ export function* currencyWatch() {
 function* fetchWalletFlow() {
   try {
     const response = yield call(requestFlow, getWallet);
-    yield put(fetchWalletSuccess(response.data.result));
+    console.log(response)
+    yield put(fetchWalletSuccess(response.data));
   } catch (error) {
     yield put(fetchWalletFailure(error.message));
   }

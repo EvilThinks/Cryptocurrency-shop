@@ -9,6 +9,12 @@ import {
   logout
 } from './actions';
 
+export const initalState = {
+  isAuthorized: false,
+  loginError: null,
+  registrationError: null
+};
+
 export default handleActions(
   {
     [loginRequest.toString()]: state => ({
@@ -46,5 +52,5 @@ export default handleActions(
       isAuthorized: false
     })
   },
-  { isAuthorized: false, loginError: null, registrationError: null }
+  initalState
 );

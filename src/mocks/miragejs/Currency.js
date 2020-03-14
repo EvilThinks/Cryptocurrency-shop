@@ -1,29 +1,20 @@
 import { Response } from 'miragejs';
-import { fakeJWT } from './Auth';
+import { recordTransaction } from './Transactions';
 
-const recordTransaction = (user, time, operation, symbol, value, cost) => {
-  user.records.push({
-    created_at: time,
-    operation: operation,
-    [symbol]: value,
-    cost: cost,
-    id: fakeJWT()
-  });
+export const getUserByJwt = (schema, request) => {
+  const {
+    requestHeaders: { Authorization }
+  } = request;
+  return schema.users.findBy(user => user.jwt === Authorization.split(' ')[1]);
 };
 
 export const Currency = (schema, request) => {
   let { symbol, operation, sum } = request.queryParams;
-  const {
-    requestHeaders: { Authorization }
-  } = request;
-  const user = schema.users.findBy(
-    user => user.jwt === Authorization.split(' ')[1]
-  );
+  const user = getUserByJwt(schema, request);
   let usdSum;
   sum = +sum;
-  console.log(schema)
-  debugger
-  const { sell, purchase } = schema.db.mockedData.all()[0];
+  const { sell, purchase } = schema.db[`${symbol}s`][0];
+  console.log(sell, purchase);
   const {
     coins: { usd }
   } = user;
@@ -57,9 +48,9 @@ export const Currency = (schema, request) => {
     }
     user.coins.usd = +(user.coins.usd += usdSum).toFixed(1);
     user.coins[symbol] -= sum;
-    const t = new Date().getTime();
-    recordTransaction(user, t, operation, symbol, sum, usdSum);
   }
+  const t = new Date().getTime();
+  recordTransaction(user, t, operation, symbol, sum, usdSum);
   return new Response(
     200,
     {},
@@ -67,4 +58,23 @@ export const Currency = (schema, request) => {
       ...user.coins
     }
   );
+};
+
+export const candles = (schema, request) => {
+  const { symbol, offset } = request.queryParams;
+  const courses = schema.db[`${symbol}s`];
+  const hour = 1000 * 60 * 60;
+  const day = hour * 24;
+  const offsets = {
+    '2h': hour * 2,
+    '4h': hour * 4,
+    '8h': hour * 8,
+    '1d': day,
+    '7d': day * 7
+  };
+  const limitTime = new Date().getTime() - offsets[offset];
+  const data = courses.where(({ mts }) => {
+    return mts > limitTime;
+  });
+  return new Response(200, {}, data);
 };

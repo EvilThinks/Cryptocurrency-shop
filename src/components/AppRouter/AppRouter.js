@@ -8,8 +8,8 @@ class AppRouter extends Component {
     return (
       <Switch>
         <Route exact path="/" component={Login}></Route>
-        <PrivateRoute  path="/trade/:coins" component={Main}></PrivateRoute>
-        <PrivateRoute  path="/users/me" component={Main}></PrivateRoute>
+        <PrivateRoute path="/trade/:coins" component={Main}></PrivateRoute>
+        <PrivateRoute path="/users/me" component={Main}></PrivateRoute>
         <Redirect to="/" from="*"></Redirect>
       </Switch>
     );

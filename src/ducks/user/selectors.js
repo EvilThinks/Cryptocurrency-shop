@@ -1,1 +1,2 @@
-export const getEmail = state => state.user.info && state.user.info.email;
+export const getEmail = state =>
+  state.user.user.info && state.user.user.info.email;

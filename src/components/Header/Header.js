@@ -1,10 +1,9 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../static/media/Logo-white.svg';
-import HeaderButton from '../HeaderButton/HeaderButton';
+import HeaderButton, { HeaderBtn } from '../HeaderButton/HeaderButton';
 import { logoutFromServer } from '../../api';
 import styled from 'styled-components';
-import { HeaderBtn } from '../HeaderButton/HeaderButton';
 const HeaderWrapper = styled.header`
   display: flex;
   flex-direction: column;
@@ -33,10 +32,12 @@ const ButtonsContainer = styled.div`
 const ImageLogo = styled.img`
   width: 180px;
 `;
-const StyledLink = props => (
-  <HeaderBtn>
-    <Link style={{ color: '#ffff' }} {...props}></Link>
-  </HeaderBtn>
+const StyledLink = ({ selected, email, ...props }) => (
+  <Link {...props} style={{ opacity: '1' }}>
+    <HeaderBtn style={{ color: selected ? '#ffff' : '#aaa' }}>
+      {email ? email : '------'}
+    </HeaderBtn>
+  </Link>
 );
 
 export default class Header extends PureComponent {
@@ -45,7 +46,7 @@ export default class Header extends PureComponent {
   }
 
   render() {
-    const { email, ethPrice, btcPrice, selected } = this.props;
+    const { email, ethPrice, btcPrice, selected, path } = this.props;
     const buttons = [
       {
         name: 'btc',
@@ -72,7 +73,11 @@ export default class Header extends PureComponent {
               />
             ))}
           </ButtonsContainer>
-          <StyledLink to="/users/me">{email ? email : '------'}</StyledLink>
+          <StyledLink
+            to="/users/me"
+            selected={path === '/users/me'}
+            email={email}
+          ></StyledLink>
           <HeaderBtn onClick={this.handleLogout}>Выйти</HeaderBtn>
           <HeaderBtn onClick={this.handleServerLogout}>Сервер логаут</HeaderBtn>
         </HeaderContainer>

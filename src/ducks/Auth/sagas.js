@@ -10,7 +10,7 @@ import {
 } from '../Auth/actions';
 import { getIsAuthorized } from './selectors';
 import { setTokenApi, clearTokenApi, login, registration } from '../../api';
-import { setToken,getToken,clearToken } from "../../localStorage";
+import { setToken, clearToken } from '../../localStorage';
 import requestFlow from '../network/sagas';
 
 function* loginFlow(action) {
@@ -18,10 +18,9 @@ function* loginFlow(action) {
     const loginResponse = yield call(requestFlow, login, action.payload);
     const token = loginResponse.data.jwt;
     yield call(setTokenApi, token);
-    //yield call(setToken,token)
+    yield call(setToken, token);
     yield put(loginSuccess());
   } catch (error) {
-    console.log(error)
     yield put(loginFailure(error.message));
   }
 }
@@ -34,7 +33,7 @@ function* registrationFlow(action) {
     );
     const token = registrationResponse.data.jwt;
     yield call(setTokenApi, token);
-    //yield call(setToken,token)
+    yield call(setToken, token);
     yield put(registrationSuccess());
   } catch (error) {
     yield put(registrationFailure(error.message));
@@ -45,10 +44,10 @@ export function* authFlow() {
   while (true) {
     const isAuthorized = yield select(getIsAuthorized);
     if (isAuthorized) {
-      yield put(loginSuccess);
+      yield put(loginSuccess());
     }
     yield take(logout);
-    //yield call(clearToken)
+    yield call(clearToken);
     yield call(clearTokenApi);
   }
 }

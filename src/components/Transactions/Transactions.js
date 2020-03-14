@@ -46,7 +46,7 @@ class Transactions extends PureComponent {
             </TableTheadTr>
           </thead>
           <tbody>
-            {transactions.records &&
+            {Array.isArray(transactions.records) &&
               transactions.records.map(transaction => {
                 if (!transaction[selected]) return null;
                 const {
@@ -66,6 +66,12 @@ class Transactions extends PureComponent {
                   </TableTbodyTr>
                 );
               })}
+            {Array.isArray(transactions.records) &&
+              transactions.records.length === 0 && (
+                <TableTbodyTr>
+                  <td>There is no transactions yet...</td>
+                </TableTbodyTr>
+              )}
           </tbody>
         </Table>
       </article>

@@ -41,12 +41,12 @@ const StyledSection = styled.section`
 class Main extends PureComponent {
   render() {
     const {
-      params: { coins }
+      params: { coins },path
     } = this.props;
     return (
       <Fragment>
         <ErrorBoundary>
-          <Header selected={coins} />
+          <Header selected={coins} path={path} />
           <MainWrapper>
             <MainContainer>
               <MainArticle>

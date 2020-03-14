@@ -3,7 +3,7 @@ import Wallet from './Wallet';
 
 
 const mapStateToProps = state => ({
-  wallet: state.wallet
+  wallet: state.user.wallet
 });
 
 export default connect(mapStateToProps)(Wallet);

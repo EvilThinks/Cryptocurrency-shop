@@ -1,4 +1,5 @@
 import { Response } from 'miragejs';
+import { getUserByJwt } from './Currency';
 
 export const fakeJWT = () => {
   return (
@@ -16,10 +17,12 @@ export const withAuth = handlerFn => {
     const {
       requestHeaders: { Authorization }
     } = request;
+   
     const isAuthenticated = schema.users.findBy(
       user =>
         user.jwt && user.jwt === (Authorization && Authorization.split(' ')[1])
     );
+    console.log('miraje', Authorization,isAuthenticated);
     if (!isAuthenticated) {
       return new Response(
         401,
@@ -64,7 +67,7 @@ export const LoginRequest = (schema, request) => {
       }
     );
   }
-  const jwt = fakeJWT();
+  const jwt = '26o7ga42yynxzq14ziwu0'; //fakeJWT();
   User.update('jwt', jwt);
   return new Response(
     200,
@@ -98,13 +101,13 @@ export const RegisterRequest = (schema, request) => {
     );
   }
 
-  const jwt = fakeJWT();
+  const jwt = '26o7ga42yynxzq14ziwu0'; //fakeJWT();
   schema.users.create({
     email: email,
     password: password,
     jwt: jwt,
     coins: { usd: 8000, btc: 0, eth: 0 },
-    records: []
+    transactions: []
   });
   return new Response(
     200,
@@ -117,8 +120,8 @@ export const RegisterRequest = (schema, request) => {
 };
 
 export const Logout = (schema, request) => {
-  const { email } = JSON.parse(request.requestBody);
-  const User = schema.users.findBy({ email: email });
+  console.log('thissss')
+  const User = getUserByJwt(schema, request);
   User.update('jwt', '');
   return new Response(200, {}, { result: 'jwt deleted' });
 };

@@ -3,7 +3,7 @@ import Transactions from './Transactions';
 import { getSelectedCurrency } from '../../ducks/currency/selectors';
 
 const mapStateToProps = state => ({
-  transactions: state.transactions,
+  transactions: state.user.transactions,
   selected: getSelectedCurrency(state)
 });
 

@@ -3,7 +3,7 @@ import CoinsChart from './CoinsChart';
 import { selectOffset } from '../../ducks/currency/actions';
 
 const mapStateToProps = state => ({
-  currency: state.currency
+  currency: state.user.currency
 });
 
 const mapDispatchToProps = {
