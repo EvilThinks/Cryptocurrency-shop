@@ -7,10 +7,10 @@ import createStoreWithSaga from './store';
 import mirageJS from './mocks/miragejs/index';
 import { getToken } from './localStorage';
 import { setTokenApi } from './api';
-import { initalState } from './ducks/Auth/reducer';
+import { initialState } from './ducks/Auth/reducer';
 
 const withAuthorized = getToken()
-  ? (setTokenApi(getToken()), { auth: { ...initalState, isAuthorized: true } })
+  ? (setTokenApi(getToken()), { auth: { ...initialState, isAuthorized: true } })
   : void 0;
 
 let store = createStoreWithSaga(withAuthorized);

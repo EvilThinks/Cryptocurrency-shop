@@ -1,15 +1,14 @@
 import { handleActions } from 'redux-actions';
-import { combineReducers } from 'redux';
 import {
   getUserInfoFailure,
   getUserInfoRequest,
   getUserInfoSuccess
 } from './actions';
-import currency from '../currency/reducer';
-import wallet from '../wallet/reducer';
-import transactions from '../transactions/reducer';
+import { logout } from '../Auth/actions';
 
-const user = handleActions(
+const initialState ={ info: null, isLoading: false, error: null }
+
+export default handleActions(
   {
     [getUserInfoRequest.toString()]: state => ({
       ...state,
@@ -25,18 +24,8 @@ const user = handleActions(
       ...state,
       error: action.error,
       isLoading: false
-    })
+    }),
+    [logout.toString()]: () => initialState
   },
-  {
-    info: null,
-    isLoading: false,
-    error: null
-  }
+  initialState
 );
-
-export default combineReducers({
-  user,
-  wallet,
-  transactions,
-  currency
-});

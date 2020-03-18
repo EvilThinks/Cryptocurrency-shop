@@ -100,6 +100,13 @@ const mirageJS = new Server({
           jwt: '26o7ga42yynxzq14ziwu0',
           coins: { usd: 8000, btc: 0, eth: 0 },
           transactions: []
+        },
+        {
+          email: 'user123@mail.ru',
+          password: 'qweqweqwe',
+          jwt: '26o7ga42yynxzq14ziwu',
+          coins: { usd: 8000, btc: 0, eth: 0 },
+          transactions: []
         }
       ]
     });

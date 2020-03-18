@@ -10,6 +10,17 @@ import {
   fetchEthSuccess,
   selectOffset
 } from './actions';
+import { logout } from '../Auth/actions';
+
+const initialState ={
+  selected: 'eth',
+  offset: '4h',
+  btc: [],
+  eth: [],
+  isBtcLoading: false,
+  isEthLoading: false,
+  error: null
+}
 
 export default handleActions(
   {
@@ -48,15 +59,8 @@ export default handleActions(
     [selectOffset.toString()]: (state, action) => ({
       ...state,
       offset: action.payload
-    })
+    }),
+    [logout.toString()]: () => initialState
   },
-  {
-    selected: 'eth',
-    offset: '4h',
-    btc: [],
-    eth: [],
-    isBtcLoading: false,
-    isEthLoading: false,
-    error: null
-  }
+  initialState
 );

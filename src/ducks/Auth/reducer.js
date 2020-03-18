@@ -9,7 +9,7 @@ import {
   logout
 } from './actions';
 
-export const initalState = {
+export const initialState = {
   isAuthorized: false,
   loginError: null,
   registrationError: null
@@ -52,5 +52,5 @@ export default handleActions(
       isAuthorized: false
     })
   },
-  initalState
+  initialState
 );

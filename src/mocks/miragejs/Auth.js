@@ -67,8 +67,8 @@ export const LoginRequest = (schema, request) => {
       }
     );
   }
-  const jwt = '26o7ga42yynxzq14ziwu0'; //fakeJWT();
-  User.update('jwt', jwt);
+  const jwt = User.jwt; //fakeJWT();
+ // User.update('jwt', jwt);
   return new Response(
     200,
     {},
@@ -101,7 +101,7 @@ export const RegisterRequest = (schema, request) => {
     );
   }
 
-  const jwt = '26o7ga42yynxzq14ziwu0'; //fakeJWT();
+  const jwt = fakeJWT();
   schema.users.create({
     email: email,
     password: password,

@@ -12,6 +12,17 @@ import {
   fetchWalletRequest,
   fetchWalletSuccess
 } from './actions';
+import { logout } from "../Auth/actions";
+
+const initialState ={
+  isLoading: false,
+  coins: {
+    usd: 0,
+    btc: 0,
+    eth: 0
+  },
+  error: null
+}
 
 export default handleActions(
   {
@@ -47,16 +58,9 @@ export default handleActions(
     [sellCurrencyFailure.toString()]: (state, action) => ({
       ...state,
       error: action.payload
-    })
+    }),
+    [logout.toString()]: () =>initialState
   },
-  {
-    isLoading: false,
-    coins: {
-      usd: 0,
-      btc: 0,
-      eth: 0
-    },
-    error: null
-  }
+  initialState
 );
 export const getError = state => state.user.wallet.error;
