@@ -17,12 +17,10 @@ export const recordTransaction = (
     cost: cost,
     id: fakeJWT()
   });
-  console.log(user);
 };
 
 export const getTransactions = (schema, request) => {
   const user = getUserByJwt(schema, request);
-  console.log(user);
   return new Response(
     200,
     {},

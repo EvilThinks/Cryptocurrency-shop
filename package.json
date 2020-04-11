@@ -11,8 +11,7 @@
     "redux",
     "redux-saga",
     "redux-actions",
-    "jsx",
-    "jest"
+    "jsx"
   ],
   "dependencies": {
     "antd": "^4.0.1",

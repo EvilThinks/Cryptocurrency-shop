@@ -6,7 +6,7 @@ import rootSaga from './ducks/sagas';
 const sagaMiddleware = createSagaMiddleware();
 
 
-const withAuthorized = ({ getState, dispatch }) => {
+const withALogger = ({ getState, dispatch }) => {
   return next => action => {
     console.log(action, getState());
     next(action);
@@ -19,7 +19,7 @@ export default initialState => {
     initialState,
     compose(
       applyMiddleware(sagaMiddleware),
-      applyMiddleware(withAuthorized),
+      applyMiddleware(withALogger),
       window.devToolsExtension ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
     )
   );

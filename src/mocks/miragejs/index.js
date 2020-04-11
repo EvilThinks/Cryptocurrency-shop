@@ -112,7 +112,6 @@ const mirageJS = new Server({
     });
   },
   routes() {
-    console.log(this);
     this.namespace = '';
     RoutesHandlers.forEach(({ type, url, handler, response, auth }) => {
       this[type](url, auth ? withAuth(handler) : handler, response);

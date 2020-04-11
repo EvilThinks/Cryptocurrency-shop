@@ -14,13 +14,11 @@ export const Currency = (schema, request) => {
   let usdSum;
   sum = +sum;
   const { sell, purchase } = schema.db[`${symbol}s`][0];
-  console.log(sell, purchase);
   const {
     coins: { usd }
   } = user;
   if (operation === 'purchase') {
     usdSum = purchase * sum;
-    console.log(usd, usdSum, sum, purchase);
     if (usd < usdSum) {
       return new Response(
         200,

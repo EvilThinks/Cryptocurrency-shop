@@ -56,7 +56,6 @@ class Transactions extends PureComponent {
                   id,
                   operation
                 } = transaction;
-                console.log(cost, delta, created_at);
                 return (
                   <TableTbodyTr key={id}>
                     <td>{operation === 'purchase' ? 'Покупка' : 'Продажа'}</td>

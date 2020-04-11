@@ -81,7 +81,6 @@ export function* currencyWatch() {
 function* fetchWalletFlow() {
   try {
     const response = yield call(requestFlow, getWallet);
-    console.log(response)
     yield put(fetchWalletSuccess(response.data));
   } catch (error) {
     yield put(fetchWalletFailure(error.message));
